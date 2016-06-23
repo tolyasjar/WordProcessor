@@ -9,7 +9,16 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
+{
+    int sentencesNumber;
+    int vowelsNumber;
+    
+    NSMutableArray *textArray;
 
+}
+
+-(void) countChars;
+-(void) countVowels;
 
 @end
 

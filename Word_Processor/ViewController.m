@@ -22,65 +22,59 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    sentencesNumber = 0;
+    vowelsNumber = 0;
+    
     }
 
 -(IBAction) whenButtonisPressed {
     
-    NSMutableArray *textArray = [NSMutableArray array];
-    
-    for (int i = 0; i < (_textView.text.length); i++) {
-        
-        [textArray addObject:[NSString stringWithFormat:@"%C", [_textView.text characterAtIndex:i]]];
+    [self sentenceCounter];
+    [self countVowels];
+    [self countChars];
     }
-   
-    NSArray *vowels = [NSArray arrayWithObjects:@"A",@"E",@"O",@"I",@"U",@"a",@"e",@"o",@"i",@"u", nil];
-    
-    int sentencesNumber = 0;
-    int vowelsNumber = 0;
-    int characterNumber = 0;
-    
-// How many sentences
-    NSString *period = @".";
 
-    for(NSString *x in textArray) {
+// How many sentences
+-(void) sentenceCounter{
+    
+    for (int i = 0; i < (self.textView.text.length); i++) {
         
-         if ( [x isEqualToString:period])
+        if ([self.textView.text characterAtIndex:i] == '.')
         {
-        sentencesNumber = sentencesNumber+1;
+            sentencesNumber = sentencesNumber+1;
         }
     }
-    _sentencesNumberLabel.text = [NSString stringWithFormat:@"%d",sentencesNumber];
-    
+
+    _sentencesNumberLabel.text = [NSString stringWithFormat:@"This text has %d sentenses.",sentencesNumber];
+}
+
 // How many vowels
+-(void) countVowels {
     
-    for(NSString *x in textArray) {
+   NSString* x =[self.textView.text lowercaseString];
+   for (int i = 0; i < (self.textView.text.length); i++) {
+       
+       if ( [x characterAtIndex:i] == 'a'|| [x characterAtIndex:i] == 'e' || [x characterAtIndex:i] == 'i'|| [x characterAtIndex:i] == 'u'|| [x characterAtIndex:i]=='o')
         
-        for(NSString *y in vowels){
-            
-        if ( [x isEqualToString:y])
-            {
-            vowelsNumber = vowelsNumber+1;
+           vowelsNumber = vowelsNumber+1;
+       
             }
-        }
-    }
-    
-    _vowelsNumberLabel.text = [NSString stringWithFormat:@"%d",vowelsNumber];
-    
+        
+        self.vowelsNumberLabel.text = [NSString stringWithFormat:@"This text has %d vowels.",vowelsNumber];
+  }
+
+
 // How many characters
     
-    for(int i = 0; i< _textView.text.length ; i+=1) {
+-(void) countChars{
     
-    characterNumber = characterNumber +1;
-        
+        self.characterNumberLabel.text = [NSString stringWithFormat:@"This text has %lu characters.",self.textView.text.length];
     }
     
-    _characterNumberLabel.text = [NSString stringWithFormat:@"%d",characterNumber];
-    
-    }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
